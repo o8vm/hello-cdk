@@ -1,0 +1,72 @@
+Content-Type: multipart/mixed; boundary="//"
+MIME-Version: 1.0
+
+--//
+Content-Type: text/cloud-config; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename="cloud-config.txt"
+
+#cloud-config
+cloud_final_modules:
+ - scripts-per-once
+ - scripts-per-boot
+ - scripts-per-instance
+ - scripts-user
+ - [users-groups,always]
+users:
+  - name: master
+    groups: [ wheel ]
+    sudo: [ "ALL=(ALL) NOPASSWD:ALL" ]
+    shell: /bin/bash
+  - name: user001
+    groups: [ users ]
+    sudo: False
+    shell: /bin/bash
+  - name: user002
+    groups: [ users ]
+    sudo: False
+    shell: /bin/bash
+  - name: user003
+    groups: [ users ]
+    sudo: False
+    shell: /bin/bash
+  - name: user004
+    groups: [ users ]
+    sudo: False
+    shell: /bin/bash
+  - name: user005
+    groups: [ users ]
+    sudo: False
+    shell: /bin/bash
+  - name: user006
+    groups: [ users ]
+    sudo: False
+    shell: /bin/bash
+  - name: user007
+    groups: [ users ]
+    sudo: False
+    shell: /bin/bash
+  - name: user008
+    groups: [ users ]
+    sudo: False
+    shell: /bin/bash
+  - name: user009
+    groups: [ users ]
+    sudo: False
+    shell: /bin/bash
+  - name: user010
+    groups: [ users ]
+    sudo: False
+    shell: /bin/bash
+
+--//
+Content-Type: text/x-shellscript; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename="userdata.txt"
+
+#!/bin/bash -xe
+exec > >(tee /var/log/user-data.log|logger -t user-data -s 2>/dev/console) 2>&1
+     echo "Hello from user-data!"
+--//--
